@@ -1,0 +1,49 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>이건 어때?</title>
+    <meta charset=" utf-8">
+</head>
+<body>
+    <center>
+        <br /><br /><br />
+        <span style=font-size:30px; color:red;">등록할 광고를 선택해주세요</span>
+        <br /><br />
+        <table>
+            <form action='upload_ok'>
+
+                &emsp;&emsp;제목 : <input type="text" name="title" />
+                <br /><br />
+                대상 성별 :
+                <input type="radio" name="gender" value="남">남
+                <input type="radio" name="gender" value="여">여
+                &emsp;&emsp;&emsp;&emsp;&emsp;
+                <br /><br />
+                대상 나이 :
+                <select name="age">
+                    <option value="">나이를 선택하세요</option>
+                    <option value="1세~5세">1세~5세</option>
+                    <option value="6세~10세">6세~10세</option>
+                    <option value="11세~15세">11세~15세</option>
+                    <option value="16세~20세">16세~20세</option>
+                    <option value="21세~25세">21세~25세</option>
+                    <option value="26세~30세">26세~30세</option>
+                    <option value="31세~35세">31세~35세</option>
+                    <option value="36세~40세">36세~40세</option>
+                    <option value="41세~49세">41세~49세</option>
+                    <option value="50세~59세">50세~59세</option>
+                    <option value="60세 이상">60세 이상</option>
+                </select>
+                &emsp;
+                <br /><br />
+                광고 파일(avi,mp4,jpg) :  <input type="file" value="파일 선택" name="file" />
+                <br /><br />
+                <input type="submit" value="확인" />
+
+            </form>
+        </table>
+        <br /><br />
+        <img src="banner.png" width="30%" />
+    </center>
+</body>
+</html>
