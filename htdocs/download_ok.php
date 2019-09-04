@@ -1,7 +1,7 @@
 <?php
 
-$filename = "img2.jpg";
-$newname = "00072.jpg";
+$filename = "3명.png";
+$newname = "00074.jpg";
 //$file = $_SERVER["DOCUMENT_ROOT"]."/AD/".$filename;
 $file = "./AD/".$filename;
 //$size = filesize($file);
@@ -29,8 +29,8 @@ if(is_file($file)) {
         header('Content-Length: '.filesize($file)); 
         header('Content-Disposition: attachment; filename='.$newname); // 다운로드되는 파일명 (실제 파일명과 별개로 지정 가능)
         //header('Content-Description: PHP Generated Data'); 
-		header('Content-Transfer-Encoding: binary'); 
         //header('Pragma: no-cache'); 
+		header('Content-Transfer-Encoding: binary'); 
         //header('Expires: 0'); 
     }
 

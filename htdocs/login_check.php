@@ -1,19 +1,12 @@
 <?php
+session_start();
 
 $id = $_POST['id'];
 $pw = $_POST['pw'];
 $mysqli = mysqli_connect("localhost", "root", "111111", "face_ad");
 
-
-if (mysqli_connect_errno()) {
-  ?>
-   <dialog open>
-    <h2>ë°ì´í„°ë² ì´ìŠ¤ì™€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.</h2>
-    <form action="login_screen.html" method="post">
-      <input type="submit" value="í™•ì¸">
-    </form>
-  </dialog>
-  <?php
+if (mysqli_connect_errno()) {		//DB ¿¬°á È®ÀÎ
+    die('Connect Error: '.mysqli_connect_error());
 }
 
 //echo "input ".$id."/".$pw."<br />\n";
@@ -23,15 +16,16 @@ $result = $mysqli->query($sql);
 
 //echo $result->num_rows."<br />\n";
 
-if ($result->num_rows == 1) {	//ï¿½Ë»ï¿½ï¿½ï¿½ rowï¿½ï¿½ ï¿½Ñ°ï¿½
-	$row = $result->fetch_array(MYSQLI_ASSOC);	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+if ($result->num_rows == 1) {	//°Ë»öµÈ row°¡ ÇÑ°³
+	$row = $result->fetch_array(MYSQLI_ASSOC);	// ÇÑ ¿­À» ¹è¿­·Î °¡Á®¿À±â
 	if($row['pw'] == $pw){
-		$_SESSION['user_id'] = $id;		//ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		$_SESSION['login_id'] = $id;		//·Î±×ÀÎ ¼º°ø½Ã ¼¼¼Ç º¯¼ö ¸¸µé±â
 		if(isset($_SESSION['user_id'])){
-			header('Location: ./main.php');
+			//header('Location: ./adv_regist_screen.html');
+			header('Location: ./session_check.php');
 		}
 		else {
-			echo "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
+			echo "¼¼¼Ç ÀúÀå ½ÇÆĞ";
 		}
 	}
 	else {

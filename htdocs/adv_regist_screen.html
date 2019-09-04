@@ -10,10 +10,8 @@
         <span style=font-size:30px; color:red;">등록할 광고를 선택해주세요</span>
         <br /><br />
         <table>
-            <form action='upload_ok'>
+            <form enctype='multipart/form-data' action='upload_ok.php' method="post">
 
-                &emsp;&emsp;제목 : <input type="text" name="title" />
-                <br /><br />
                 대상 성별 :
                 <input type="radio" name="gender" value="남">남
                 <input type="radio" name="gender" value="여">여
@@ -38,12 +36,18 @@
                 <br /><br />
                 광고 파일(avi,mp4,jpg) :  <input type="file" value="파일 선택" name="file" />
                 <br /><br />
-                <input type="submit" value="확인" />
+                비고<br />
+                <textarea rows="5" cols="30" name="contents" placeholder="200자 이내"></textarea>
+                <br /><br />
+                <input type="submit" value="등록" />
 
             </form>
         </table>
         <br /><br />
         <img src="banner.png" width="30%" />
+        <form action='logout.php'>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="submit" value="로그아웃" float:right; />
+        </form>
     </center>
 </body>
 </html>

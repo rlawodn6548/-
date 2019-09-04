@@ -9,16 +9,21 @@
 
         <span style=font-size:50px; color:red;">회원 가입</span>
         <br /><br /><br />
-        &emsp;&emsp;&emsp; &emsp;&emsp;&emsp;ID : <INPUT TYPE="TEXT" NAME="id" Size="20" />
+        &emsp;&emsp;&emsp; &emsp;&emsp;&emsp;
+                    <form action="member_regist_req.php" method="post">
+                        ID : <INPUT TYPE="text" NAME="new_id" Size="20" />
+                        <br /><br />
+                        PASSWORD : <input type="text" name="new_pw" size="20" />&emsp;&emsp;&emsp;&emsp;&ensp;
+                        <br /><br />
+                        PASSWORD 확인 : <input type="text" name="new_pwc" size="20" />&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;
+                        <br /><br />
+                        E-MAIL : <input type="text" name="e_mail" size="20" />&emsp;&emsp;
+                        <br /><br />
+
+                        <input type="submit" value="가입하기" />
+                    </form>
         <br /><br />
-        &emsp;&emsp;PASSWORD : <INPUT TYPE="password" NAME="ps" Size="20" />
-        <br /><br />
-        PASSWORD 확인: <INPUT TYPE="password" NAME="ps2" Size="20" />
-        <br /><br />
-        &nbsp;&nbsp;&nbsp;&emsp;&emsp; &emsp; E-MAIL: <INPUT TYPE="TEXT" NAME="email" Size="20" />
-        <br /><br />
-        <INPUT TYPE="button" NAME="btn1" value="가입하기" />&emsp;
-        <br /><br />
+        
         <img src="banner.png" width="30%" />
     </center>
 </body>
