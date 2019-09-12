@@ -15,13 +15,16 @@ def receiveHeader(data):
     return msg_list
 
 if __name__=='__main__':
+    socketnum='localhost'
+    port=8001
+
     f = open("version.txt", 'r')
     date = f.readline()
     print(date)
     f.close()
 
     clientSock = socket(AF_INET, SOCK_STREAM)
-    clientSock.connect(('192.168.31.171', 8001))  # 소켓 연결
+    clientSock.connect((socketnum, port))  # 소켓 연결
 
     print('연결 확인 됐습니다.')
     clientSock.send(date.encode('utf-8'))  # version(date)전송

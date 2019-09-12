@@ -99,7 +99,7 @@ if __name__=="__main__":
             # 메세지 전송
             msg = makeheader(filename, ext, age, gender)
             clientSocekt.send(msg.encode())
-            time.sleep(1)  # sleep 해결
+            #time.sleep(1)  # sleep 해결
 
             # 파일 전송
             sendfile(filename, filepath)
