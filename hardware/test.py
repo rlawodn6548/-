@@ -3,7 +3,11 @@ import cv2
 from socket import *
 from open_video import video_open
 from datetime import datetime
-
+from tkinter import *
+import tkinter.font
+import tkinter.messagebox
+IP = '10.14.7.12'
+PORT = 8001
 # 카메라에 비친 사람들 중 가장 많은 나이대 추출 함수
 def find_age(age, gender):
     for i in range(0, len(age)):
@@ -76,9 +80,10 @@ def socket_update():
     clientSock = socket(AF_INET, SOCK_STREAM)
 
     try:
-        clientSock.connect(('192.168.28.171', 8001))  # 소켓 연결
+        clientSock.connect((IP, PORT))  # 소켓 연결
     except Exception as e:
         print("서버 연결에 실패했습니다")  # 서버 연결 안되어있을시 에러처리
+        tkinter.messagebox.showinfo("Message","서버 연결에 실패했습니다")
         return;
 
     print('연결 확인 됐습니다.')
@@ -89,6 +94,7 @@ def socket_update():
 
     if number_of_file == 0:
         print("업데이트 할 파일이 없습니다")
+        tkinter.messagebox.showinfo("Message", "업데이트 할 파일이 없습니다")
         return;
 
     while number_of_file > 0:
@@ -130,13 +136,12 @@ def socket_update():
     version = "%04d-%02d-%02d %02d:%02d:%02d" % (s.year, s.month, s.day, s.hour, s.minute, s.second)
     f.write(version)  # 새로운 version 쓰기
 
+    tkinter.messagebox.showinfo("Message", "업데이트 완료")
     print("---------------------------------------------------------------------")
     print("----------------------UPDATE COMPLETE--------------------------------")
     print("---------------------------------------------------------------------")
 
-
-########## Main 루트 ##########################
-if __name__ == "__main__":
+def run():
     client_id = "T9kpyfrV7JPYMpwRxRCl"  # naver api 아이디
     client_secret = "g__6vWyhbi"  # naver api 비밀번호
     url = "https://openapi.naver.com/v1/vision/face"  # naver api 주소
@@ -147,7 +152,6 @@ if __name__ == "__main__":
     count = 0
 
     face_cascade = cv2.CascadeClassifier('haarcascade_frontface.xml')  # opencv에서 얼굴 인식하는 xml
-    socket_update()  # 프로그램 구동 전 광고파일들을 업데이트 한다
 
     while True:
         ret, frame = capture.read()  # 카메라에서 프레임 하나 읽음 ret: 프레임을 제대로 읽었는지 확인 유무 , frame : 읽은 화면
@@ -157,7 +161,7 @@ if __name__ == "__main__":
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)  # 카메라에 얼글부분의 사각형을 보여줌
         cv2.namedWindow("window", cv2.WND_PROP_FULLSCREEN)  # 카메라 창 생성
-        ##cv2.setWindowProperty("window", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)  # 카메라 창 전체화면
+        cv2.setWindowProperty("window", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)  # 카메라 창 전체화면
         cv2.imshow('window', frame)  # 카메라 화면 보여주기
 
         if count % 50 == 0:  # 프레임 100번당 1번 opencv에서 얼굴 인식
@@ -182,12 +186,12 @@ if __name__ == "__main__":
                     gender = []
                     for faceCount in range(len(result['faces'])):
                         print("gender/age : " + result['faces'][faceCount]['gender']['value'] +
-                              " / "+result['faces'][faceCount]['age']['value'])  # 인식된 gender 출력
+                              " / " + result['faces'][faceCount]['age']['value'])  # 인식된 gender 출력
                         age.append(result['faces'][faceCount]['age']['value'])  # 성별 list에 성별 입력
                         gender.append(result['faces'][faceCount]['gender']['value'])  # 나이 list에 나이 입력
                     (age_value, gender_value) = find_age(age, gender)  # 대표 나이 및 성별 결정
                     print("대표 나이 : ", end='')
-                    print(str(age_value-1) + "대")
+                    print(str(age_value - 1) + "대")
                     print("대표 성별 : ", end='')
                     print(gender_value)
                     print("-----------------------------------------------------------")
@@ -196,8 +200,22 @@ if __name__ == "__main__":
             else:  # open cv에서 사람 인식 못했을때
                 print("There is no person")
 
-        if cv2.waitKey(1) > 0 : break
+        if cv2.waitKey(1) > 0: break
         count += 1
 
     capture.release()
     cv2.destroyAllWindows()
+
+
+########## Main 루트 ##########################
+if __name__ == "__main__":
+    window = Tk();
+    font = tkinter.font.Font(size=20)
+    window.title("이건 어때")
+    window.geometry("640x400+100+100")
+    window.resizable(False, False)
+    btUpdate = Button(window , text ="UPDATE",font = font, fg="red",command = socket_update)
+    btRun = Button(window , text ="START", font = font, fg="blue",command = run)
+    btUpdate.place(x=180, y=80, width=300, height=100)
+    btRun.place(x=180, y=200, width=300, height=100)
+    window.mainloop()
